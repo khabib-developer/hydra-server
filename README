@@ -1,1 +1,40 @@
-README
+[main (root-commit) 770f842] initial
+ Committer: Habib <habib@MacBook-Pro-Habib.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 25 files changed, 927 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 .gitignore_hidden_message
+ create mode 100644 README
+ create mode 100644 cmd/server/main.go
+ create mode 100644 go.mod
+ create mode 100644 go.sum
+ create mode 100644 internal/server/authentication.go
+ create mode 100644 internal/server/channel.go
+ create mode 100644 internal/server/connect.go
+ create mode 100644 internal/server/file.go
+ create mode 100644 internal/server/listen.go
+ create mode 100644 internal/server/message.go
+ create mode 100644 internal/server/middleware.go
+ create mode 100644 internal/server/server.go
+ create mode 100644 internal/server/user.go
+ create mode 100644 internal/server/version.go
+ create mode 100644 pkg/auth/dto.go
+ create mode 100644 pkg/channel/dto.go
+ create mode 100644 pkg/file/dto.go
+ create mode 100644 pkg/message/dto.go
+ create mode 100644 pkg/user/dto.go
+ create mode 100644 pkg/version/main.go
+ create mode 100644 pkg/websocket/conn.go
+ create mode 100644 pkg/websocket/dto.go
+ create mode 100644 pkg/websocket/types.go
