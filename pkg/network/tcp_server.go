@@ -26,11 +26,19 @@ type TcpClient struct {
 	private_key *rsa.PrivateKey
 }
 
-func NewHydraServer(addr string, hardcoded_priv *rsa.PrivateKey, hardcoded_pub *rsa.PublicKey) *HydraServer {
-	return &HydraServer{addr: addr, hardcoded_pub: hardcoded_pub, hardcoded_priv: hardcoded_priv}
+func NewHydraServer(addr string, hardcoded_priv string, hardcoded_pub string) (*HydraServer, error) {
+	priv_key, err := security.DecodePrivateKeyFromPEM(hardcoded_priv)
+	if err != nil {
+		return nil, err
+	}
+	pub_key, err := security.DecodePublicKeyFromPEM(hardcoded_pub)
+	if err != nil {
+		return nil, err
+	}
+	return &HydraServer{addr: addr, hardcoded_pub: pub_key, hardcoded_priv: priv_key}, nil
 }
 
-func (s *HydraServer) ListenAndServe(handler func(conn net.Conn)) error {
+func (s *HydraServer) ListenAndServe() error {
 
 	ln, err := net.Listen("tcp", s.addr)
 

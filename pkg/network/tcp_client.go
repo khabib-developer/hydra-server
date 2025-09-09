@@ -19,7 +19,7 @@ func NewHydraClient(addr string) *HydraClient {
 	return &HydraClient{addr: addr, public_key: pub, private_key: priv}
 }
 
-func (c *HydraClient) Connect(hardcoded_private_key *rsa.PrivateKey) error {
+func (c *HydraClient) Connect(hardcoded_private_key string) error {
 	conn, err := net.Dial("tcp", c.addr)
 	if err != nil {
 		return err
@@ -28,7 +28,13 @@ func (c *HydraClient) Connect(hardcoded_private_key *rsa.PrivateKey) error {
 		Conn: conn,
 	}
 
-	err = SendPublicAddress(c.safeConn, c.public_key, hardcoded_private_key)
+	priv_key, err := security.DecodePrivateKeyFromPEM(hardcoded_private_key)
+
+	if err != nil {
+		return err
+	}
+
+	err = SendPublicAddress(c.safeConn, c.public_key, priv_key)
 
 	return err
 

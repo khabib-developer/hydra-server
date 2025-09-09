@@ -2,24 +2,21 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/khabib-developer/hydra-server/internal/server"
+	"github.com/khabib-developer/hydra-server/pkg/network"
 )
 
 func main() {
-	server := server.NewServer()
-
-	http.HandleFunc("/version", server.Version)
-	http.HandleFunc("/auth", server.Auth)
-	http.HandleFunc("/connect", server.Connect)
-	http.HandleFunc("/getActiveUsers", server.CheckAuth(server.GetActiveUsers))
-	http.HandleFunc("/getChannels", server.CheckAuth(server.GetChannels))
-	http.HandleFunc("/getChannelMembers", server.CheckAuth(server.GetChannelMembers))
-
-	fmt.Println("WebSocket server started on :8080")
-	err := http.ListenAndServe(":8080", nil)
+	server, err := network.NewHydraServer("localhost:9087", server.RootPrivKey, server.RootPublicKey)
 	if err != nil {
-		fmt.Println("ListenAndServe:", err)
+		fmt.Println(err)
+		return
+	}
+
+	err = server.ListenAndServe()
+	fmt.Println("server successfully ran")
+	if err != nil {
+		fmt.Println(err)
 	}
 }
