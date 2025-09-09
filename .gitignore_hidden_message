@@ -1,6 +1,0 @@
-/build
-/dist
-.env
-deploy.sh
-
-.DS_Store
